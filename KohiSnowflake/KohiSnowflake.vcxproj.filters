@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Config.h" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Elements\CheckBox.cpp" />
+    <ClCompile Include="Elements\TextField.cpp" />
+    <ClCompile Include="Elements\Slider.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Containers.h" />
+    <ClInclude Include="Elements\CheckBox.h" />
+    <ClInclude Include="Elements\TextField.h" />
+    <ClInclude Include="Elements\Everything.h" />
+    <ClInclude Include="Elements\Slider.h" />
+  </ItemGroup>
+</Project>
