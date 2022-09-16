@@ -9,11 +9,11 @@ Slider::Slider(const int16_t& x, const int16_t& y, const uint16_t& width, const 
     this->max = max;
 
     this->slider.setFillColor(sf::Color(INACTIVE_COLOR));
-    this->slider.setSize(sf::Vector2f(this->width, this->height / 2));
-    this->slider.setPosition(this->x, this->y + this->height / 4);
+    this->slider.setSize(sf::Vector2f(this->width - this->height, this->height / 2));
+    this->slider.setPosition(this->x + this->height / 2, this->y + this->height / 4);
 
     this->dot.setFillColor(sf::Color(HOVER_COLOR));
-    this->dot.setRadius(this->height);
+    this->dot.setRadius(this->height / 2);
     this->updateDotPosition();
 
     this->text.setCharacterSize(TEXT_SIZE);
@@ -23,25 +23,9 @@ Slider::Slider(const int16_t& x, const int16_t& y, const uint16_t& width, const 
     return;
 }
 
-void Slider::setLabel(const std::string& label, const sf::Font& font) {
-    this->text.setFont(font);
-    this->text.setString(label);
-    sf::FloatRect bounds = this->text.getLocalBounds();
-    this->text.setOrigin(bounds.width / 2.0, TEXT_SIZE / 1.5);
-
-    return;
-}
-
 void Slider::setValue(const int16_t& value) {
-    this->value = value;
-    if (this->selected) {
-        this->border.setFillColor(sf::Color(this->selectedColor));
-        this->text.setFillColor(sf::Color(BACKGROUND_COLOR));
-    }
-    else {
-        this->border.setFillColor(sf::Color(BACKGROUND_COLOR));
-        this->text.setFillColor(sf::Color(this->selectedColor));
-    }
+    this->value = std::min(std::max(value, this->min), this->max);
+    this->updateDotPosition();
     return;
 }
 
@@ -63,26 +47,24 @@ void Slider::callCallbacks() {
 }
 
 void Slider::eventProcessing(const sf::Event& event, const sf::Vector2i& mousePos) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && mouseButton == "none") {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (this->mouseButton == "none" || this->mouseButton == "left")) {
         if (mousePos.x >= this->x && mousePos.x <= this->x + this->width &&
             mousePos.y >= this->y && mousePos.y <= this->y + this->height) {
-            mouseButton = "left";
+
+            int16_t newValue = ((double)mousePos.x - this->x) / (this->width - this->height) * (this->max - this->min) + this->min;
+            if (this->value != newValue) {
+                this->value = newValue;
+                this->updateDotPosition();
+                this->callCallbacks();
+            }
+            this->mouseButton = "left";
         }
-        else {
-            mouseButton = "missed";
+        else if (this->mouseButton != "left") {
+            this->mouseButton = "missed";
         }
-    }
-    else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && mouseButton == "none") {
-        mouseButton = "right";
     }
     else if (event.type == sf::Event::MouseButtonReleased) {
-        if (mouseButton == "left") {
-            if (mousePos.x >= this->x && mousePos.x <= this->x + this->width &&
-                mousePos.y >= this->y && mousePos.y <= this->y + this->height) {
-                this->click();
-            }
-        }
-        mouseButton = "none";
+        this->mouseButton = "none";
     }
     return;
 }
@@ -96,6 +78,6 @@ void Slider::draw(sf::RenderWindow& window) {
 }
 
 void Slider::updateDotPosition() {
-    this->dot.setPosition(, this->y);
+    this->dot.setPosition((this->width - this->height) / (this->max - this->min) * (this->value - this->min) + this->x, this->y);
     return;
 }

@@ -6,6 +6,7 @@
     <ClCompile Include="Elements\CheckBox.cpp" />
     <ClCompile Include="Elements\TextField.cpp" />
     <ClCompile Include="Elements\Slider.cpp" />
+    <ClCompile Include="KohiSnowflake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Containers.h" />
@@ -13,5 +14,6 @@
     <ClInclude Include="Elements\TextField.h" />
     <ClInclude Include="Elements\Everything.h" />
     <ClInclude Include="Elements\Slider.h" />
+    <ClInclude Include="KohiSnowflake.h" />
   </ItemGroup>
 </Project>

@@ -9,8 +9,6 @@ class Slider {
 public:
     Slider(const int16_t& x, const int16_t& y, const uint16_t& width, const uint16_t& height, const int16_t& min, const int16_t& max);
 
-    void setLabel(const std::string& label, const sf::Font& font);
-
     void setValue(const int16_t& value);
 
     void addCallback(void (*callback)(const int16_t&));

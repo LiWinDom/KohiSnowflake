@@ -1,7 +1,7 @@
 #pragma once
 // Visible options
-#define WINDOW_WIDTH	1280
-#define WINDOW_HEIGHT	720
+#define WINDOW_WIDTH	960
+#define WINDOW_HEIGHT	960
 
 #define TEXT_SIZE		32
 #define PADDING_SIZE	5
@@ -13,3 +13,5 @@
 #define INACTIVE_COLOR		0xA0A0A0FF
 #define HOVER_COLOR			0x606060FF
 #define SELECTED_COLOR		0x000000FF
+
+#define PI 2*acos(0.0)

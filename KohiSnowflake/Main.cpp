@@ -7,9 +7,13 @@
 #include "Config.h"
 #include "Containers.h"
 #include "Elements/Everything.h"
+#include "KohiSnowflake.h"
 
 sf::Font font;
 bool inFocus = true;
+
+Slider slider(25, WINDOW_HEIGHT - 75, WINDOW_WIDTH - 50, 50, 0, 10);
+KohiSnowflake snowflake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT - 100);
 
 void onStart(sf::RenderWindow& window) {
     font.loadFromFile("resourses/Consolas.ttf");
@@ -18,11 +22,20 @@ void onStart(sf::RenderWindow& window) {
     //window.setIcon(52, 52, icon.getPixelsPtr());
     window.setVerticalSyncEnabled(true);
     window.setActive(true);
+
+    slider.addCallback([](const std::int16_t& value) ->
+        void {
+            snowflake.recalc(value);
+        }
+    );
+
     return;
 }
 
 void display(sf::RenderWindow& window) {
     window.clear(sf::Color(BACKGROUND_COLOR));
+    snowflake.draw(window);
+    slider.draw(window);
     window.display();
     return;
 }
@@ -42,6 +55,7 @@ void eventProcessing(sf::RenderWindow& window) {
         if (!inFocus) continue;
 
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        slider.eventProcessing(event, mousePos);
     }
     return;
 }
@@ -52,7 +66,7 @@ int main() {
 #endif // !DEBUG
 
     try {
-        sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Kohi snowflake [0.1]", sf::Style::Close);
+        sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Kohi snowflake [1.0]", sf::Style::Close);
         onStart(window);
 
         while (window.isOpen()) {

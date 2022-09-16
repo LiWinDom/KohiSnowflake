@@ -160,6 +160,7 @@
     <ClCompile Include="Elements\CheckBox.cpp" />
     <ClCompile Include="Elements\Slider.cpp" />
     <ClCompile Include="Elements\TextField.cpp" />
+    <ClCompile Include="KohiSnowflake.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     <ClInclude Include="Elements\Everything.h" />
     <ClInclude Include="Elements\Slider.h" />
     <ClInclude Include="Elements\TextField.h" />
+    <ClInclude Include="KohiSnowflake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
